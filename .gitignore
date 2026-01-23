@@ -1,0 +1,49 @@
+# Noir build artifacts
+target/
+proofs/
+Verifier.toml
+
+# Node modules
+node_modules/
+client/node_modules/
+
+# Build outputs
+*.so
+*.wasm
+dist/
+build/
+
+# Keypairs (SECURITY: Never commit private keys!)
+keypair/*.json
+*-keypair.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+deploy_workaround.sh
+deploy_final.sh
+deploy_engineered.sh
+/tmp/
+
+# Cargo
+Cargo.lock

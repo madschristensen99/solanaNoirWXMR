@@ -1,0 +1,6 @@
+[package]
+name = "noirSolana"
+type = "bin"
+authors = [""]
+
+[dependencies]

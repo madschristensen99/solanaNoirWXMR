@@ -1,0 +1,33 @@
+{
+  "name": "monero-solana-bridge-client",
+  "version": "1.0.0",
+  "description": "TypeScript client for Monero->Solana bridge ZK proof verification",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "verify": "tsx src/verify.ts",
+    "test": "tsx src/test.ts",
+    "generate-proof": "tsx src/generateProof.ts"
+  },
+  "keywords": [
+    "monero",
+    "solana",
+    "zero-knowledge",
+    "noir",
+    "bridge"
+  ],
+  "author": "FUNGERBIL Team",
+  "license": "MIT",
+  "dependencies": {
+    "@solana/web3.js": "^1.95.0",
+    "@noble/ed25519": "^2.1.0",
+    "@noble/hashes": "^1.5.0",
+    "bs58": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

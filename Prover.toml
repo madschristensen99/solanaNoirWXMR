@@ -1,0 +1,49 @@
+# Monero->Solana Bridge Prover Inputs
+# Example based on TX1: 5caae835b751a5ab243b455ad05c489cb9a06d8444ab2e8d3a9d8ef905c1439a
+# Block: 1934116 (Stagenet)
+# Amount: 20 XMR (20000000000 piconeros)
+
+# PRIVATE INPUTS (witness - kept secret)
+tx_secret_key_r = "0x4cbf8f2cfb622ee126f08df053e99b96aa2e8c1cfd575d2a651f3343b465800a"
+amount_v = "20000000000"  # 20 XMR in piconeros
+stealth_secret_H_s = "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"  # H(r*A)
+
+# PUBLIC INPUTS (visible on-chain)
+# One-time address R = r*G
+one_time_address_R_x = "0x0000000000000000000000000000000000000000000000000000000000000001"
+one_time_address_R_y = "0x0000000000000000000000000000000000000000000000000000000000000002"
+
+# ECDH encrypted point S = 8*r*A
+ecdh_encrypted_S_x = "0x0000000000000000000000000000000000000000000000000000000000000003"
+ecdh_encrypted_S_y = "0x0000000000000000000000000000000000000000000000000000000000000004"
+
+# Stealth address P = H_s*G + B
+stealth_address_P_x = "0x0000000000000000000000000000000000000000000000000000000000000005"
+stealth_address_P_y = "0x0000000000000000000000000000000000000000000000000000000000000006"
+
+# Recipient view key A
+recipient_view_A_x = "0x0000000000000000000000000000000000000000000000000000000000000007"
+recipient_view_A_y = "0x0000000000000000000000000000000000000000000000000000000000000008"
+
+# Recipient spend key B
+recipient_spend_B_x = "0x0000000000000000000000000000000000000000000000000000000000000009"
+recipient_spend_B_y = "0x000000000000000000000000000000000000000000000000000000000000000a"
+
+# Encrypted amount from blockchain
+ecdh_amount = "20000000000"
+
+# Transaction hash (for Merkle tree)
+tx_hash = "0x5caae835b751a5ab243b455ad05c489cb9a06d8444ab2e8d3a9d8ef905c1439a"
+
+# Output index in transaction
+output_index = "0"
+
+# Poseidon commitment to witness (computed off-chain)
+commitment = "0x0000000000000000000000000000000000000000000000000000000000000000"
+
+# NOTE: The above values are EXAMPLES. In production:
+# 1. Extract R, S, P from the Monero transaction using a Monero node
+# 2. Parse the recipient address to get A and B
+# 3. Compute H_s = H(r*A) using the transaction secret key
+# 4. Compute the commitment using Pedersen hash
+# 5. Use a library like @noble/ed25519 for Ed25519 operations

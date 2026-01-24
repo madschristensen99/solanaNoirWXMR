@@ -8,12 +8,25 @@ This circuit proves ownership of a Monero transaction output without revealing t
 
 ## 🎉 Deployment Status
 
-**✅ SUCCESSFULLY DEPLOYED TO SOLANA DEVNET**
+**✅ FULL BRIDGE SYSTEM DEPLOYED TO SOLANA DEVNET**
 
-- **Network**: Solana Devnet
+### Noir ZK Verifier
 - **Program ID**: `Cn1NByVWjX3691JnSg8PTbzRJBT9mSWv8J3eSD2ZurXy`
-- **Deployment Date**: January 23, 2026
-- **Transaction**: [View on Solana Explorer](https://explorer.solana.com/tx/32kbBYXJjoKmGqh5FhSZKw5aTCDumSWCYkc1syN9qtcPrBSW1kZ6p1a6AEHR8zqHLcrSPevuKQC46PLBUSgMqMsC?cluster=devnet)
+- **Transaction**: [32kbBYX...](https://explorer.solana.com/tx/32kbBYXJjoKmGqh5FhSZKw5aTCDumSWCYkc1syN9qtcPrBSW1kZ6p1a6AEHR8zqHLcrSPevuKQC46PLBUSgMqMsC?cluster=devnet)
+
+### Bridge Program (Anchor)
+- **Program ID**: `G6V8QRJi7H8APsuhGSmNaX8qLMRd4oW63y9UjCyRpEtr`
+- **Transaction**: [2heFLDb...](https://explorer.solana.com/tx/2heFLDbvaMNTxyJ4kV1XkWstcDkHB554bafWPJgHC6UaYYDgt8YzGfSqyD3EAKivM9nyxQQnm8NQhWiREEePPokU?cluster=devnet)
+- **Features**: LP registration, collateral management, mint/burn wXMR, Merkle root verification
+
+### Oracle Infrastructure
+- **Status**: ✅ Operational
+- **Monero Node**: http://node.monerodevs.org:38089 (stagenet)
+- **Wallet**: Synced (145,222 blocks, 0.073 XMR)
+- **Components**: Wallet RPC, Merkle tree builder, transaction fetching
+
+**Deployment Date**: January 23, 2026  
+**Network**: Solana Devnet
 
 ### Quick Test on Devnet
 
@@ -217,13 +230,18 @@ This circuit implements the specification in `PROTOCOL.md` v7.1:
 
 ## Development Roadmap
 
-- [x] Core circuit implementation
-- [x] Basic tests
+- [x] Core circuit implementation (~617 constraints)
+- [x] Basic tests (4 real Monero transactions)
 - [x] TypeScript client SDK
 - [x] Solana verifier deployment (devnet)
 - [x] Build tooling and automation
-- [ ] Integration with Monero RPC
-- [ ] End-to-end proof generation and verification
+- [x] Bridge program implementation (Anchor)
+- [x] Bridge program deployment (devnet)
+- [x] Oracle infrastructure (Monero RPC integration)
+- [x] Wallet sync and transaction fetching
+- [x] Merkle tree builder
+- [ ] End-to-end proof generation with real Monero tx
+- [ ] Full bridge flow test (LP → Mint → Burn)
 - [ ] Security audit
 - [ ] Mainnet deployment
 

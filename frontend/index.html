@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zXMR Bridge - Monero ↔ Solana</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🌉</span>
+                <h1>zXMR Bridge</h1>
+            </div>
+            <div class="network-status">
+                <span class="status-dot" id="statusDot"></span>
+                <span id="networkStatus">Connecting...</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Bridge Card -->
+            <div class="bridge-card">
+                <div class="card-header">
+                    <h2>Bridge Assets</h2>
+                    <div class="tab-selector">
+                        <button class="tab active" data-tab="mint">Mint zXMR</button>
+                        <button class="tab" data-tab="burn">Burn zXMR</button>
+                    </div>
+                </div>
+
+                <!-- Mint Tab -->
+                <div class="tab-content active" id="mintTab">
+                    <div class="input-group">
+                        <label>From Monero</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="xmrAmount" placeholder="0.00" />
+                            <span class="currency">XMR</span>
+                        </div>
+                        <div class="balance">Balance: <span id="xmrBalance">--</span> XMR</div>
+                    </div>
+
+                    <div class="arrow-down">↓</div>
+
+                    <div class="input-group">
+                        <label>To Solana</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="zxmrReceive" placeholder="0.00" readonly />
+                            <span class="currency">zXMR</span>
+                        </div>
+                        <div class="fee-info">Fee: <span id="mintFee">0.3%</span></div>
+                    </div>
+
+                    <div class="transaction-details">
+                        <div class="detail-row">
+                            <span>Monero TX Hash</span>
+                            <input type="text" id="moneroTxHash" placeholder="Enter transaction hash..." />
+                        </div>
+                        <div class="detail-row">
+                            <span>Output Index</span>
+                            <input type="number" id="outputIndex" placeholder="0" value="0" />
+                        </div>
+                        <div class="detail-row">
+                            <span>Collateral Deposit</span>
+                            <span class="value"><span id="mintDeposit">1.00</span> USDC</span>
+                        </div>
+                    </div>
+
+                    <button class="btn-primary" id="mintBtn">
+                        <span class="btn-text">Generate Proof & Mint</span>
+                        <span class="btn-loader" style="display: none;">⏳</span>
+                    </button>
+                </div>
+
+                <!-- Burn Tab -->
+                <div class="tab-content" id="burnTab">
+                    <div class="input-group">
+                        <label>From Solana</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="zxmrBurnAmount" placeholder="0.00" />
+                            <span class="currency">zXMR</span>
+                        </div>
+                        <div class="balance">Balance: <span id="zxmrBalance">--</span> zXMR</div>
+                    </div>
+
+                    <div class="arrow-down">↓</div>
+
+                    <div class="input-group">
+                        <label>To Monero</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="xmrReceive" placeholder="0.00" readonly />
+                            <span class="currency">XMR</span>
+                        </div>
+                        <div class="fee-info">Fee: <span id="burnFee">0.3%</span></div>
+                    </div>
+
+                    <div class="transaction-details">
+                        <div class="detail-row">
+                            <span>Monero Address</span>
+                            <input type="text" id="moneroAddress" placeholder="Enter your XMR address..." />
+                        </div>
+                        <div class="detail-row">
+                            <span>Anti-Griefing Deposit</span>
+                            <span class="value"><span id="burnDeposit">1.00</span> USDC</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Timeout</span>
+                            <span class="value">2 hours</span>
+                        </div>
+                    </div>
+
+                    <button class="btn-primary" id="burnBtn">
+                        <span class="btn-text">Request Burn</span>
+                        <span class="btn-loader" style="display: none;">⏳</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Value Locked</div>
+                    <div class="stat-value" id="tvl">$--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total zXMR Minted</div>
+                    <div class="stat-value" id="totalMinted">-- zXMR</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">XMR Price</div>
+                    <div class="stat-value" id="xmrPrice">$--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Collateral Ratio</div>
+                    <div class="stat-value" id="collateralRatio">150%</div>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="transactions-card">
+                <h3>Recent Transactions</h3>
+                <div class="transactions-list" id="transactionsList">
+                    <div class="empty-state">No transactions yet</div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="https://github.com/madschristensen99/solanaNoirWXMR" target="_blank">GitHub</a>
+                <a href="#" id="docsLink">Documentation</a>
+                <a href="#" id="auditLink">Security Audit</a>
+            </div>
+            <div class="footer-info">
+                <p>⚠️ Experimental Software - Use at your own risk</p>
+                <p>Verifier: <code id="verifierProgram">Cn1NByVWjX3691JnSg8PTbzRJBT9mSWv8J3eSD2ZurXy</code></p>
+                <p>Bridge: <code id="bridgeProgram">G6V8QRJi7H8APsuhGSmNaX8qLMRd4oW63y9UjCyRpEtr</code></p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
